@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipment Loading Dashboard</title>
+
+<!-- ================= ZOHO CREATOR SDK ================= -->
+<script src="https://js.zohostatic.com/creator/widgets/version/2.0/widgetsdk-min.js"></script>
+
+
+<link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- ============ TOP: TRUCK LOADING (3D visualization) ============ -->
+  <div class="right-panel">
+
+  <div class="card viz-card">
+
+      <!-- Reference truck photo — replace the src below with your uploaded truck image URL -->
+      <div class="truck-photo-strip">
+        <img src="https://i.imgur.com/YOUR-UPLOADED-TRUCK-IMAGE.png" alt="Truck reference" class="truck-photo"
+             onerror="this.closest('.truck-photo-strip').style.display='none';">
+        <div class="photo-caption">Reference Fleet Truck — Box Trailer</div>
+      </div>
+
+      <div class="viz-header">
+        <div class="viz-title" style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+          <span>Booking ID — <span class="truck-id" id="viz-booking-id">—</span></span>
+        </div>
+        <div class="cap-block">
+          <div class="cap-label">Truck Capacity</div>
+          <div class="cap-value" id="cap-value">100.00 m³</div>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-labels">
+          <span>Used Space: <b class="used-val" id="used-space">0.00 m³ (0.00%)</b></span>
+          <span>Remaining Space: <b class="rem-val" id="rem-space">100.00 m³ (100.00%)</b></span>
+        </div>
+        <div class="over-capacity-banner" id="over-capacity-banner">⚠ Over Capacity — some quantity could not be stored, see items list</div>
+      </div>
+
+      <div class="viz-body">
+        <div id="three-container">
+          <div class="viz-empty" id="viz-empty">No items loaded yet...</div>
+          <div class="three-error" id="three-error">3D engine failed to initialize. Please reload the widget. If this persists, check the browser console for a WebGL support error.</div>
+        </div>
+
+        <!-- Loaded Items — separate section beside the truck -->
+        <div class="card items-panel" id="items-panel">
+          <div class="items-list-title">Loaded Items — <span id="items-truck-label">TRK-001</span></div>
+          <table class="items-table">
+            <thead><tr><th>Item</th><th>Qty</th><th>Dims</th><th>Vol</th><th></th></tr></thead>
+            <tbody id="items-body"></tbody>
+          </table>
+          <div class="no-items" id="no-items-msg">No items added to this truck yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="card summary-card"><div class="label">Length</div><div class="value" id="sum-len">1000 cm</div></div>
+      <div class="card summary-card"><div class="label">Width</div><div class="value" id="sum-wid">240 cm</div></div>
+      <div class="card summary-card"><div class="label">Height</div><div class="value" id="sum-hei">240 cm</div></div>
+      <div class="card summary-card"><div class="label">Volume</div><div class="value" id="sum-vol">📦 100.00 m³</div></div>
+    </div>
+
+  </div>
+
+  <!-- ============ BOTTOM: ADD SHIPMENT ITEM FORM ============ -->
+  <div class="card form-card">
+    <div class="form-title">Add Shipment Item</div>
+
+    <div class="form-container">
+      <div class="form-main">
+        <div class="field-row cols-3">
+          <div class="field">
+            <label>Item</label>
+            <input type="text" id="f-item" placeholder="Enter item name...">
+          </div>
+          <div class="field">
+            <label>Booking ID</label>
+            <!-- Automatically mapped from the Zoho Creator record the
+                 "Shipment Items" button was clicked from — a plain,
+                 read-only display field (not a lookup/dropdown), so it
+                 can never be changed to a different booking here. -->
+            <input type="text" id="f-booking" value="Loading…" readonly>
+          </div>
+          <div class="field">
+            <label>Hub Name</label>
+            <!-- Populated live from the Zoho Creator "Locations2" report. -->
+            <select id="f-hub">
+              <option value="">Loading hubs…</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row cols-3">
+          <div class="field">
+            <label>Packing Type</label>
+            <select id="f-pkg">
+              <option>Box</option><option>Crate</option><option>Bundle</option><option>Pallet</option><option>Roll</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Quantity</label>
+            <div class="row">
+              <input type="number" id="f-qty" value="10" min="1" step="1">
+              <select class="unit" id="f-qty-unit">
+                <option>PCS</option><option>BOX</option><option>UNIT</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Weight (kg) <span style="color:var(--muted)">(per unit)</span></label>
+            <div class="row">
+              <input type="number" id="f-weight" value="250" min="0" step="0.1">
+              <span class="unit" style="display:flex;align-items:center;justify-content:center;color:var(--muted);">kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row cols-3">
+          <div class="field">
+            <label>Rate Per Kg</label>
+            <div class="row">
+              <input type="number" id="f-rate" value="2.50" min="0" step="0.01">
+              <span class="unit" style="display:flex;align-items:center;justify-content:center;color:var(--muted);">$</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+      </div>
+
+      <div class="form-side">
+        <div class="section-title">Dimensions (Per Unit)</div>
+        <div class="dims-grid">
+          <div class="field"><label>Length (cm)</label><input type="number" id="f-len" value="100" min="1"></div>
+          <div class="field"><label>Width (cm)</label><input type="number" id="f-wid" value="50" min="1"></div>
+          <div class="field"><label>Height (cm)</label><input type="number" id="f-hei" value="50" min="1"></div>
+        </div>
+
+        <div class="field">
+          <label>Notes</label>
+          <textarea id="f-remarks" placeholder="Enter notes..."></textarea>
+        </div>
+        <div class="error-text" id="form-error"></div>
+
+        <div class="hint" id="capacity-hint"></div>
+
+        <div class="btn-row form-side-actions">
+          <button class="btn btn-primary" id="btn-add">+ Add Item</button>
+          <button class="btn btn-secondary" id="btn-reset">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="save-row">
+      <button class="btn btn-primary" id="btn-save-shipment">💾 Save Shipment</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="Script.js"></script>
+</body>
+</html>

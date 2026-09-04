@@ -1,0 +1,18 @@
+[error] [2026-09-02T04:34:44.977Z] : × Below file formats are not allowed in Sigma
+[info] [2026-09-02T04:34:44.982Z] :  ==> app\.Rhistory
+[info] [2026-09-02T04:34:44.984Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2026-09-02T04:34:45.001Z] : × Below file formats are not allowed in Sigma
+[info] [2026-09-02T04:34:45.003Z] :  ==> app\.Rhistory
+[info] [2026-09-02T04:34:45.005Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2026-09-02T04:34:54.592Z] : × Below file formats are not allowed in Sigma
+[info] [2026-09-02T04:34:54.598Z] :  ==> app\.Rhistory
+[info] [2026-09-02T04:34:54.600Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2026-09-02T04:34:54.617Z] : × Below file formats are not allowed in Sigma
+[info] [2026-09-02T04:34:54.620Z] :  ==> app\.Rhistory
+[info] [2026-09-02T04:34:54.623Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2026-09-02T04:35:43.893Z] : × Below file formats are not allowed in Sigma
+[info] [2026-09-02T04:35:43.907Z] :  ==> app\.Rhistory
+[info] [2026-09-02T04:35:43.908Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2026-09-02T04:35:43.926Z] : × Below file formats are not allowed in Sigma
+[info] [2026-09-02T04:35:43.928Z] :  ==> app\.Rhistory
+[info] [2026-09-02T04:35:43.934Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
